@@ -197,7 +197,7 @@ int rev(int a)
 int evaluate(char *postfix)
 {
           printf("Postfix:%s\n",postfix);
-    struct stack *s = (struct stack*)malloc(sizeof(struct stack));//allocating memory space for struct stack
+    struct stack *s = (struct stack*)malloc(10000*sizeof(struct stack));//allocating memory space for struct stack
     s->size = 10000;
     s->top2 = -1;//as memory allocation will be from 0
     s->array2 = (int*)malloc(s->size*sizeof(int));//allocating memory space for array
@@ -205,12 +205,12 @@ int evaluate(char *postfix)
     int r=0;
     while(postfix[i]!='\0')
     {
-          printf("%c",postfix[i]);
+          //printf("%c",postfix[i]);
         if(postfix[i]== ' ')
             {i++;continue;}
         else if(!is_operator(postfix[i]))
         {
-          printf("%c ",postfix[i]);
+         // printf("%c ",postfix[i]);
             int num=0,n1=0,k=1;
             while(postfix[i]!=' ')
             {
