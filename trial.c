@@ -107,7 +107,7 @@ int is_operator(char value)
 
 char *Final(char *infix)
 {
-    struct stack *s = (struct stack*)malloc(sizeof(struct stack));;//allocating memory space for struct stack
+    struct stack *s = (struct stack*)malloc(1000*sizeof(struct stack));;//allocating memory space for struct stack
     s->size = 100;
     s->top = -1;//as memory allocation will be from 0
     s->array = (char*)malloc(s->size*sizeof(char));//allocating memory space for array
@@ -133,12 +133,16 @@ char *Final(char *infix)
                           //printf("e1%c ",top(s));
                     if(precedence(infix[k])> precedence(top(s)))//if infix[i] is greater than the previous operator stored in top
                     {
+                              postfix[j]=' ';
+                              j++;
                               //printf("e2%c",infix[k]);
                         push(s,infix[k]);//pushing operator in stack
                         k--;
                     }
                     else//if infix[i] is smaller than the previous operator stored in top
                     {
+                              postfix[j]=' ';
+                              j++;
                         postfix[j] = pop(s);//will pop the operator into
                         j++;
                         postfix[j]=' ';
@@ -154,18 +158,20 @@ char *Final(char *infix)
             postfix[j]=infix[i];
             i++;
             j++;
-            postfix[j]=' ';
-            j++;
         }
         else//if infix[i] is an operator
         {
             if(precedence(infix[i])> precedence(top(s)))//if infix[i] is greater than the previous operator stored in top
             {
+                      postfix[j]=' ';
+                      j++;
                 push(s,infix[i]);//pushing operator in stack
                 i++;
             }
             else//if infix[i] is smaller than the previous operator stored in top
             {
+                      postfix[j]=' ';
+                      j++;
                 postfix[j] = pop(s);//will pop the operator into
                 j++;
                  postfix[j]=' ';
@@ -210,17 +216,18 @@ int evaluate(char *postfix)
             {i++;continue;}
         else if(!is_operator(postfix[i]))
         {
-         // printf("%c ",postfix[i]);
+         //printf("%c ",postfix[i]);
             int num=0,n1=0,k=1;
-            while(postfix[i]!=' ')
+            while(postfix[i]!=' '&&!is_operator(postfix[i]))
             {
+                     // printf("%c ",postfix[i]);
                 n1=(postfix[i]-48);
                 num=num+k*n1;
                 k=k*10;
                 i++;
             }
             num=rev(num);
-            printf("e1%d\n",num);
+            //printf("e1%d\n",num);
             push2(s,num);
         }
         else
